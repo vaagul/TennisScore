@@ -3,13 +3,13 @@ package com.bootcamp.tennis_score;
 import java.util.ArrayList;
 import java.util.List;
 
-class Tournament{
+class Player{
 	private int sets;
 	private int games;
 	private int points;
 	private char id;
 	
-	Tournament(char id){
+	Player(char id){
 		this.id = id;
 	}
 
@@ -48,32 +48,32 @@ class Tournament{
 
 public class Tournament {
 
-	private Tournament p1;
-	private Tournament p2;
+	private Player p1;
+	private Player p2;
 
 	Tournament(char p1Id,char p2Id){
-		p1 = new Tournament(p1Id);
-		p2 = new Tournament(p2Id);
+		p1 = new Player(p1Id);
+		p2 = new Player(p2Id);
 	}
 
-	private Tournament getWinner(char winner){
+	private Player getWinner(char winner){
         if (winner == p1.getId()) return p1;
         else return p2;
     }
 
-	private Tournament getLooser(char winner){
+	private Player getLooser(char winner){
         if (winner != p1.getId()) return p1;
         else return p2;
     }
 
 	private void updateSets(char winner){
 
-		Tournament winnerPlayer = getWinner(winner);
+		Player winnerPlayer = getWinner(winner);
 		winnerPlayer.setSets(winnerPlayer.getSets()+1);
 	}
 
 	private void updateGames(char winner){
-		Tournament winnerPlayer = getWinner(winner);
+		Player winnerPlayer = getWinner(winner);
 		winnerPlayer.setGames(winnerPlayer.getGames() +1 );
 
 		if( Math.abs(p1.getGames()-p2.getGames()) >= 2 && winnerPlayer.getGames() >= 6 ){
@@ -92,8 +92,8 @@ public class Tournament {
         points.add(40); //3
         points.add(50); //4
 
-        Tournament win = getWinner(winner);
-        Tournament loos = getLooser(winner);
+        Player win = getWinner(winner);
+        Player loos = getLooser(winner);
 
 //        if (win.getPoints() <= 30){
 //
@@ -145,16 +145,6 @@ public class Tournament {
 		System.out.println(String.format("sets:    %3d  %3d",p1.getSets(),p2.getSets()));
 		System.out.println(String.format("games:   %3d  %3d",p1.getGames(),p2.getGames()));
 		System.out.println(String.format("points:  %3d  %3d",p1.getPoints(),p2.getPoints()));
-	}
-
-	public static void main(String args[]){
-		String input = "ABABABAAB";
-		Tournament t = new Tournament('A','B');
-
-		for(int itr = 0; itr < input.length(); itr++){
-			t.updatePoints(input.charAt(itr));
-		}
-		t.printScore();
 	}
 
 }

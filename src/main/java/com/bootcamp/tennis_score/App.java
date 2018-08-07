@@ -1,7 +1,5 @@
 package com.bootcamp.tennis_score;
 
-import Test.Tennis;
-
 /**
  * Hello world!
  *
@@ -10,6 +8,14 @@ public class App
 {
     public static void main( String[] args )
     {
-    		Tennis.calc("ABABAB");
+//    		Tennis.calc("ABABAB");
+    	
+    		String input = "ABABABAAB";
+		Tournament t = new Tournament('A','B');
+
+		for(int itr = 0; itr < input.length(); itr++){
+			t.updatePoints(input.charAt(itr));
+		}
+		t.printScore();
     }
 }
