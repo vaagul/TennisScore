@@ -14,9 +14,7 @@ public class Tennis {
 	   for(i=0;i<s.length();i++)
 	   {
 		       bool=convertToBoolArray(s.charAt(i));
-//		       System.out.println(bool[0]+" "+bool[1]);
 			   points=updatePoints(points,bool);
-//			   System.out.println("points"+points[0]+" "+points[1]);
 			   int game=checkGame(points);
 			   if(game>0)
 			   {
