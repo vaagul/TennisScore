@@ -2,11 +2,10 @@ package Test;
 
 import java.util.Arrays;
 
-public class New {
-   public static void main(String args[])
+public class Tennis {
+   public static void calc(String s)
    {
 	   
-	   String s="ABABABABA";
 	   int i;
 	   int[] bool =new int[2];
 	   int[] points=new int[]{0,0};
@@ -15,9 +14,9 @@ public class New {
 	   for(i=0;i<s.length();i++)
 	   {
 		       bool=convertToBoolArray(s.charAt(i));
-		       System.out.println(bool[0]+" "+bool[1]);
+//		       System.out.println(bool[0]+" "+bool[1]);
 			   points=updatePoints(points,bool);
-			   System.out.println("points"+points[0]+" "+points[1]);
+//			   System.out.println("points"+points[0]+" "+points[1]);
 			   int game=checkGame(points);
 			   if(game>0)
 			   {
@@ -37,6 +36,7 @@ public class New {
    }
    
    public static void printPoints (int[] p) {
+	   Integer[] scores = {0, 15, 30, 40};
 	   if (p[0] >= 4 && p[1] >= 4) {
 		   if (p[0] == p[1]) {
 			   System.out.println("D D");
@@ -48,7 +48,7 @@ public class New {
 			   }
 		   }
 	   } else {
-		   System.out.println(p[0] + " " + p[1]);
+		   System.out.println(scores[p[0]-1] + " " + scores[p[1]-1]);
 	   }
    }
    public static int[] updatePoints(int[] points,int bool[])
