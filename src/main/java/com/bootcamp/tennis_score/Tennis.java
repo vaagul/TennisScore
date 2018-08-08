@@ -10,8 +10,9 @@ import java.util.Arrays;
 public class Tennis {
    public static void calc(String s)
    {
-	   
 	   int i;
+	   int tieOccured=0;
+	   int game=0;
 	   int[] bool =new int[2];
 	   int[] points=new int[]{0,0};
 	   int[] games=new int[]{0,0};
@@ -19,14 +20,26 @@ public class Tennis {
 	   for(i=0;i<s.length();i++)
 	   {
 		       bool=convertToBoolArray(s.charAt(i));
-			   points=updatePoints(points,bool);
-			   int game=checkGame(points);
+		       if(tieOccured==0) {
+                   points=updatePoints(points,bool);
+                   game=checkGame(points);
+               }
+		       else{
+		           //tie occured
+                   points=updatePoints(points,bool);
+                   game=checkTieBreakerGame(points);
+                   if(game>0)
+                       tieOccured=0;
+               }
 			   if(game>0)
 			   {
 				   games=updateGames(games,game);
 				   Arrays.fill(points, 0);
 			   }
 			   int set=checkSet(games);
+		       if(set<0){
+		           tieOccured=1;
+               }
 			   if(set>0)
 			   {
 				   sets=updateSets(sets,set);
@@ -35,7 +48,10 @@ public class Tennis {
 	   }
 	   System.out.println(sets[0]+" "+sets[1]);
 	   System.out.println(games[0]+" "+games[1]);
-	   printPoints(points);
+	   if(tieOccured==0)
+	        printPoints(points);
+	   else
+	        printTiePoints(points);
    }
    
    public static void printPoints (int[] p) {
@@ -51,8 +67,13 @@ public class Tennis {
 			   }
 		   }
 	   } else {
-		   System.out.println(scores[p[0]-1] + " " + scores[p[1]-1]);
+		   System.out.println(scores[p[0]] + " " + scores[p[1]]);
 	   }
+   }
+
+   public static void printTiePoints(int[] p){
+           System.out.println( p[0] + " " + p[1] );
+
    }
    public static int[] updatePoints(int[] points,int bool[])
    {
@@ -93,7 +114,10 @@ public class Tennis {
    }
    public static int checkSet(int[] games)
    {
-	   if(Math.abs(games[0]-games[1])>2 && Math.max(games[0], games[1])>5)
+       if(games[0] + games[1] == 12){
+           return -1;
+       }
+	   if((Math.abs(games[0]-games[1])>2 && Math.max(games[0], games[1])>5 ) || games[0] + games[1] == 13)
 	   {
 		   if(games[0]>games[1])
 		   return 1;
@@ -114,5 +138,19 @@ public class Tennis {
 	   else
 		   return 0;
    }
+    public static int checkTieBreakerGame(int points[])
+    {
+        if(Math.abs(points[0]-points[1])>=2 && Math.max(points[0], points[1])>6)
+
+        {
+
+            if(points[0]>points[1])
+                return 1;
+            else
+                return 2;
+        }
+        else
+            return 0;
+    }
    
 }
